@@ -20,7 +20,9 @@ crates.spec(package = "serde", version = "=1.0.219", features = ["derive"])
 crates.spec(
     package = "sui-sdk-types",
     git = "https://github.com/mystenlabs/sui-rust-sdk",
-    rev = "86a9e06cde84671e96e776d926a85fc1f229314d",
+    # Cargo's source identity includes the requested short rev; Cargo.lock
+    # resolves that request to 86a9e06cde84671e96e776d926a85fc1f229314d.
+    rev = "86a9e06",
 )
 crates.spec(package = "thiserror", version = "=2.0.12")
 crates.from_specs(

@@ -10,3 +10,4 @@ published.localnet.json
 scripts/multisig/tx-data.txt
 
 .env
+/bazel-*
