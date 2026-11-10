@@ -28,6 +28,7 @@ crates.spec(package = "thiserror", version = "=2.0.12")
 crates.from_specs(
     name = "mvr_types_crates",
     cargo_lockfile = "//:Cargo.lock",
+    lockfile = "//:cargo-bazel-lock.json",
     skip_cargo_lockfile_overwrite = True,
     supported_platform_triples = ["x86_64-unknown-linux-gnu"],
 )
