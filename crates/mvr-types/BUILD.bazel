@@ -1,0 +1,25 @@
+load("@rules_rust//rust:defs.bzl", "rust_test")
+
+package(default_visibility = ["//visibility:public"])
+
+rust_test(
+    name = "types_test",
+    srcs = [
+        "src/errors.rs",
+        "src/lib.rs",
+        "src/name.rs",
+        "src/name_service.rs",
+        "src/named_type.rs",
+    ],
+    crate_root = "src/lib.rs",
+    crate_name = "mvr_types",
+    edition = "2021",
+    deps = [
+        "@mvr_types_crates//:anyhow",
+        "@mvr_types_crates//:once_cell",
+        "@mvr_types_crates//:regex",
+        "@mvr_types_crates//:serde",
+        "@mvr_types_crates//:sui-sdk-types",
+        "@mvr_types_crates//:thiserror",
+    ],
+)
