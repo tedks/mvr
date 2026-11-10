@@ -1,0 +1,31 @@
+module(name = "mvr")
+
+bazel_dep(name = "rules_rust", version = "0.74.0")
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = "2021",
+    versions = ["1.98.0"],
+)
+use_repo(rust, "rust_toolchains")
+register_toolchains("@rust_toolchains//:all")
+
+# This first Bazel package is mvr-types. The CLI, indexer, API and Move
+# packages retain their native build flows and are not implicit inputs.
+crates = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
+crates.spec(package = "anyhow", version = "=1.0.97")
+crates.spec(package = "once_cell", version = "=1.21.0")
+crates.spec(package = "regex", version = "=1.11.1")
+crates.spec(package = "serde", version = "=1.0.219", features = ["derive"])
+crates.spec(
+    package = "sui-sdk-types",
+    git = "https://github.com/mystenlabs/sui-rust-sdk",
+    rev = "86a9e06cde84671e96e776d926a85fc1f229314d",
+)
+crates.spec(package = "thiserror", version = "=2.0.12")
+crates.from_specs(
+    name = "mvr_types_crates",
+    cargo_lockfile = "//:Cargo.lock",
+    supported_platform_triples = ["x86_64-unknown-linux-gnu"],
+)
+use_repo(crates, "mvr_types_crates")
